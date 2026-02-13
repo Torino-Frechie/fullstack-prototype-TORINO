@@ -7,29 +7,87 @@
 </head>
 
 <body>
+
+    <!-- NAVBAR -->
     <div class="navbar">
         <h1>Full-Stack App</h1>
         <div class="navlinks">
-            <a href="#">Login</a>
-            <a href="#">Register</a>
+            <a href="#" id="loginLink">Login</a>
+            <a href="#" id="registerLink">Register</a>
         </div>
     </div>
-<div class="main-content">
-    <h1>Welcome to Full-Stack App</h1>
-    <h2>A static prototype before backend integration, Simulates:</h2>
-    <ul>
-        <li>Email registration + fake verification</li>
-        <li>Login with JWT-like token simulation</li>
-        <li>Role-based UI (Admin/User)</li>
-        <li>CRUD for Employees, Departments, Requests</li>
-    </ul>
 
-    <div class="navbar1">
-     <h4>Note: All data is stored in localStorage.Refresh to reset.</h4>
+    <!-- HOME SECTION -->
+    <div class="main-content" id="homeSection">
+        <h1>Welcome to Full-Stack App</h1>
+        <h2>A static prototype before backend integration, Simulates:</h2>
+
+        <ul>
+            <li>Email registration + fake verification</li>
+            <li>Login with JWT-like token simulation</li>
+            <li>Role-based UI (Admin/User)</li>
+            <li>CRUD for Employees, Departments, Requests</li>
+        </ul>
+
+        <div class="navbar1">
+            <h4>Note: All data is stored in localStorage. Refresh to reset.</h4>
+        </div>
+
+        <button class="GetStartBttn" id="getStartedBtn">
+            Get Started →
+        </button>
     </div>
 
-    <button class="GetStartBttn">Get Started -></button>
+    <!-- REGISTER SECTION -->
+    <div class="form-section" id="registerSection" style="display:none;">
+        <h2>Register Account</h2>
+
+        <form>
+            <input type="text" placeholder="First Name" required>
+            <input type="text" placeholder="Last Name" required>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+
+            <button type="submit">Register</button>
+            <button type="button" id="backBtn">Back</button>
+        </form>
+    </div>
+
+<!-- VERIFY EMAIL SECTION -->
+<div class="verify-section" id="verifySection" style="display:none;">
+    <h2>Verify Your Email</h2>
+
+    <div class="success-box">
+         <span id="userEmail"></span>
+    </div>
+
+    <p>For demo purposes, click below to simulate verification:</p>
+
+    <button id="simulateBtn">Simulate Email Verification</button>
+    <button id="goLoginBtn">Go to Login</button>
 </div>
-    
+
+<!-- LOGIN SECTION -->
+<div class="login-section" id="loginSection" style="display:none;">
+
+    <div class="success-box" id="verifiedMessage" style="display:none;">
+        ✅ Email verified! You may now log in.
+    </div>
+
+    <h2>Login</h2>
+
+    <form id="loginForm">
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+
+        <button type="submit" class="loginBtn">Login</button>
+        <button type="button" id="cancelLoginBtn">Cancel</button>
+    </form>
+
+</div>
+
+
+
+    <script src="script.js"></script>
 </body>
 </html>
