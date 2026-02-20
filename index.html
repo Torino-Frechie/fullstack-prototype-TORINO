@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Full-Stack App</title>
     <link rel="stylesheet" href="style.css">
@@ -8,85 +9,307 @@
 
 <body>
 
-    <!-- NAVBAR -->
-    <div class="navbar">
+    <nav class="navbar">
         <h1>Full-Stack App</h1>
         <div class="navlinks">
             <a href="#" id="loginLink">Login</a>
             <a href="#" id="registerLink">Register</a>
         </div>
-    </div>
+    </nav>
 
-    <!-- HOME SECTION -->
-    <div class="main-content" id="homeSection">
+    <section class="main-content" id="homeSection">
         <h1>Welcome to Full-Stack App</h1>
-        <h2>A static prototype before backend integration, Simulates:</h2>
-
+        <h2>A static prototype before backend integration. Simulates:</h2>
         <ul>
             <li>Email registration + fake verification</li>
             <li>Login with JWT-like token simulation</li>
             <li>Role-based UI (Admin/User)</li>
             <li>CRUD for Employees, Departments, Requests</li>
         </ul>
-
         <div class="navbar1">
             <h4>Note: All data is stored in localStorage. Refresh to reset.</h4>
         </div>
+        <button class="GetStartBttn" id="getStartedBtn">Get Started →</button>
+    </section>
 
-        <button class="GetStartBttn" id="getStartedBtn">
-            Get Started →
-        </button>
-    </div>
-
-    <!-- REGISTER SECTION -->
-    <div class="form-section" id="registerSection" style="display:none;">
+    <section class="form-section" id="registerSection" style="display:none;">
         <h2>Register Account</h2>
-
-        <form>
+        <form id="registerForm">
             <input type="text" placeholder="First Name" required>
             <input type="text" placeholder="Last Name" required>
             <input type="email" placeholder="Email" required>
             <input type="password" placeholder="Password" required>
-
             <button type="submit">Register</button>
             <button type="button" id="backBtn">Back</button>
         </form>
-    </div>
+    </section>
 
-<!-- VERIFY EMAIL SECTION -->
-<div class="verify-section" id="verifySection" style="display:none;">
-    <h2>Verify Your Email</h2>
+    <section class="verify-section" id="verifySection" style="display:none;">
+        <h2>Verify Your Email</h2>
+        <div class="success-box">
+             <span id="userEmail"></span>
+        </div>
+        <p>For demo purposes, click below to simulate verification:</p>
+        <button id="simulateBtn">Simulate Email Verification</button>
+        <button id="goLoginBtn">Go to Login</button>
+    </section>
 
-    <div class="success-box">
-         <span id="userEmail"></span>
-    </div>
+    <section class="login-section" id="loginSection" style="display:none;">
+        <div class="success-box" id="verifiedMessage" style="display:none;">
+            ✅ Email verified! You may now log in.
+        </div>
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit" class="loginBtn">Login</button>
+            <button type="button" id="cancelLoginBtn">Cancel</button>
+        </form>
+    </section>
 
-    <p>For demo purposes, click below to simulate verification:</p>
+    <section class="admin-section" id="adminSection" style="display:none;">
+        <div class="admin-header">
+            <h2>Full-Stack App</h2>
+            <div class="dropdown">
+                <button class="dropbtn" id="dropbtn">Admin ▾</button>
+                <div class="dropdown-content" id="myDropdown">
+                    <a href="#" class="nav-profile">Profile</a>
+                    <a href="#" class="nav-employees">Employees</a>
+                    <a href="#" class="nav-account">Accounts</a>
+                    <a href="#" class="nav-departments">Departments</a>
+                    <a href="#" class="nav-myrequest">My Requests</a>
+                    <hr>
+                    <a href="#" id="logoutBtn" style="color: red;">Logout</a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <h2>My Profile</h2>
+            <div class="card">
+                <h3 id="displayFullName">Admin User</h3>
+                <p><strong>Email:</strong> <span id="displayEmail">admin@example.com</span></p>
+                <p><strong>Role:</strong> Admin</p>
+                <button>Edit Profile</button>
+            </div>
+        </div>
+    </section>
 
-    <button id="simulateBtn">Simulate Email Verification</button>
-    <button id="goLoginBtn">Go to Login</button>
-</div>
+    <section class="admin-section" id="employeesSection" style="display:none;">
+        <div class="admin-header">
+            <h2>Full-Stack App</h2>
+            <div class="dropdown">
+                <button class="dropbtn">Admin ▾</button>
+                <div class="dropdown-content">
+                    <a href="#" class="nav-profile">Profile</a>
+                    <a href="#" class="nav-employees">Employees</a>
+                    <a href="#" class="nav-account">Accounts</a>
+                    <a href="#" class="nav-departments">Departments</a>
+                    <a href="#" class="nav-myRequests">My Requests</a>
+                    <hr>
+                    <a href="#" class="logoutBtn" style="color: red;">Logout</a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="table-header">
+                <h2>Employees</h2>
+                <button id="addEmployeeBtn" class="btn-add">+ Add Employee</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Dept</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="employeeTableBody"></tbody>
+            </table>
+            <div id="employeeFormContainer" class="card" style="display: none;">
+                <h3>Add Employee</h3>
+                <form id="employeeForm">
+                    <input type="text" id="empId" placeholder="ID" required>
+                    <input type="email" id="empEmail" placeholder="Email" required>
+                    <input type="text" id="empPosition" placeholder="Position" required>
+                    <input type="text" id="empDept" placeholder="Department" required>
+                    <input type="date" id="empHireDate" required>
+                    <button type="submit">Save</button>
+                    <button type="button" id="cancelEmpBtn">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-<!-- LOGIN SECTION -->
-<div class="login-section" id="loginSection" style="display:none;">
+    <section class="admin-section" id="accountSection" style="display:none;">
+        <div class="admin-header">
+            <h2>Full-Stack App</h2>
+            <div class="dropdown">
+                <button class="dropbtn">Admin ▾</button>
+                <div class="dropdown-content">
+                    <a href="#" class="nav-profile">Profile</a>
+                    <a href="#" class="nav-employees">Employees</a>
+                    <a href="#" class="nav-accounts">Accounts</a>
+                    <a href="#" class="nav-departments">Departments</a>
+                    <a href="#" class="nav-myRequests">My Requests</a>
+                    <hr>
+                    <a href="#" class="logoutBtn" style="color: red;">Logout</a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="table-header">
+                <h2>Accounts</h2>
+                <button id="addAccountBtn" class="btn-add">+ Add Account</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Verified</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="accountTableBody"></tbody>
+            </table>
+            <div id="accountFormContainer" class="card" style="display: none;">
+                <div class="form-header">
+                    <h3>Add/Edit Account</h3>
+                </div>
+                <form id="accountForm">
+                    <label>First Name</label>
+                    <input type="text" id="accFirstName" required>
+                    <label>Last Name</label>
+                    <input type="text" id="accLastName" required>
+                    <label>Email</label>
+                    <input type="email" id="accEmail" required>
+                    <label>Password</label>
+                    <input type="password" id="accPassword" required>
+                    <label>Role</label>
+                    <select id="accRole">
+                        <option value="User">User</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="accVerified"> <label for="accVerified">Verified</label>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit" class="btn-save">Save</button>
+                        <button type="button" id="cancelAccBtn" class="btn-cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 
-    <div class="success-box" id="verifiedMessage" style="display:none;">
-        ✅ Email verified! You may now log in.
-    </div>
+    <section class="admin-section" id="departmentsSection" style="display:none;">
+        <div class="admin-header">
+            <h2>Full-Stack App</h2>
+            <div class="dropdown">
+                <button class="dropbtn">Admin ▾</button>
+                <div class="dropdown-content">
+                    <a href="#" class="nav-profile">Profile</a>
+                    <a href="#" class="nav-employees">Employees</a>
+                    <a href="#" class="nav-accounts">Accounts</a>
+                    <a href="#" class="nav-departments">Departments</a>
+                    <a href="#" class="nav-myRequests">My Requests</a>
+                    <hr>
+                    <a href="#" class="logoutBtn" style="color: red;">Logout</a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="table-header">
+                <h2>Departments</h2>
+                <button id="addDeptBtn" class="btn-add">+ Add Department</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="deptTableBody"></tbody>
+            </table>
+            <div id="deptFormContainer" class="card" style="display: none;">
+                <h3 id="deptFormTitle">Add Department</h3>
+                <form id="deptForm">
+                    <input type="text" id="deptName" placeholder="Department Name" required>
+                    <input type="text" id="deptDesc" placeholder="Description" required>
+                    <button type="submit">Save</button>
+                    <button type="button" id="cancelDeptBtn">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-    <h2>Login</h2>
+    <section class="admin-section" id="myRequestsSection" style="display:none;">
+        <div class="admin-header">
+            <h2>Full-Stack App</h2>
+            <div class="dropdown">
+                <button class="dropbtn">Admin ▾</button>
+                <div class="dropdown-content">
+                    <a href="#" class="nav-profile">Profile</a>
+                    <a href="#" class="nav-employees">Employees</a>
+                    <a href="#" class="nav-accounts">Accounts</a>
+                    <a href="#" class="nav-departments">Departments</a>
+                    <a href="#" class="nav-myRequests">My Requests</a>
+                    <hr>
+                    <a href="#" class="logoutBtn" style="color: red;">Logout</a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="table-header">
+                <h2>My Requests</h2>
+                <button id="openRequestModalBtn" class="btn-add">+ New Request</button>
+            </div>
+            <div id="noRequestsMsg" class="empty-msg">
+                <p>You have no requests yet.</p>
+                <button id="createFirstBtn" class="btn-add">Create One</button>
+            </div>
+            <table id="requestTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Items</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="requestTableBody"></tbody>
+            </table>
+        </div>
 
-    <form id="loginForm">
-        <input type="email" placeholder="Email" required>
-        <input type="password" placeholder="Password" required>
-
-        <button type="submit" class="loginBtn">Login</button>
-        <button type="button" id="cancelLoginBtn">Cancel</button>
-    </form>
-
-</div>
-
-
+        <div id="requestModal" class="modal">
+            <div class="card modal-content">
+                <div class="modal-header">
+                    <h3>New Request</h3>
+                    <span id="closeModal" class="close">&times;</span>
+                </div>
+                <form id="requestForm">
+                    <label>Type</label>
+                    <select id="requestType">
+                        <option value="Equipment">Equipment</option>
+                        <option value="Supplies">Supplies</option>
+                    </select>
+                    <label>Items</label>
+                    <div id="itemsContainer">
+                        <div class="item-row">
+                            <input type="text" placeholder="Item name" required>
+                            <input type="number" value="1" min="1">
+                            <button type="button" class="add-item-btn">+</button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit">Submit Request</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
     <script src="script.js"></script>
 </body>
